@@ -1,10 +1,12 @@
 import React, { Component} from 'react'
 import PropTypes from 'prop-types'
+import Rating  from 'react-rating';
 
 class Book extends Component{
   static propTypes = {
     book:PropTypes.object.isRequired,
-    onShelfChange:PropTypes.func
+    onShelfChange:PropTypes.func,
+    onRatingChange:PropTypes.func
   }
 
   handleShelfChange= (e) => {
@@ -12,9 +14,14 @@ class Book extends Component{
       this.props.onShelfChange(this.props.book, e.target.value);
     }
   }
+  handleRatingChange= (value) => {
+    if (this.props.onRatingChange){
+      this.props.onRatingChange(this.props.book, value);
+    }
+  }
 
   render(){
-    const {authors=[], shelf='none', imageLinks, title} = this.props.book
+    const {authors=[], shelf='none', imageLinks, title, averageRating=0, userRating=0} = this.props.book
 
     let image = imageLinks ? imageLinks.thumbnail : null
 
@@ -32,6 +39,15 @@ class Book extends Component{
             </select>
           </div>
         </div>
+        <Rating
+          className="test"
+          emptySymbol="fa fa-star fa-lg empty"
+          placeholderSymbol="fa fa-star fa-lg all"
+          fullSymbol="fa fa-star fa-lg user"
+          placeholderRating={averageRating}
+          initialRating={userRating}
+          onChange={this.handleRatingChange}
+        />
         <div className="book-title">{title}</div>
         <div className="book-authors">
           {authors.map(author => <span className="book-authors-name" key={author}>{author}</span>)}

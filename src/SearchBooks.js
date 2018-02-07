@@ -9,6 +9,7 @@ import { BarLoader } from 'react-spinners';
 class SearchBooks extends Component{
   static propTypes = {
     onShelfChange:PropTypes.func,
+    onRatingChange:PropTypes.func,
     books:PropTypes.array
   }
 
@@ -23,11 +24,18 @@ class SearchBooks extends Component{
     }
   }
 
-  syncShelfProperties = toUpdateBooks => {
+  onRatingChange = (book, rating) => {
+    if (this.props.onRatingChange){
+      this.props.onRatingChange(book, rating);
+    }
+  }
+
+  syncBookProperties = toUpdateBooks => {
     this.props.books.forEach(book=>{
       var foundBook = toUpdateBooks.find(b=>b.id === book.id);
       if (foundBook){
         foundBook.shelf = book.shelf;
+        foundBook.userRating = book.userRating;
       }
     })
   }
@@ -40,7 +48,7 @@ class SearchBooks extends Component{
       if (!books || books.error){
         foundBooks=[]
       }
-      this.syncShelfProperties(foundBooks)
+      this.syncBookProperties(foundBooks)
 
       this.setState({books:foundBooks, loading:false})
     })
@@ -66,7 +74,9 @@ class SearchBooks extends Component{
         <div className="search-books-results">
           <BooksGrid
             books={this.state.books}
-            onShelfChange={this.onShelfChange} />
+            onShelfChange={this.onShelfChange}
+            onRatingChange={this.onRatingChange}
+          />
         </div>
       </div>
     )

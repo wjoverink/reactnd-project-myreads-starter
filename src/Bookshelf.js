@@ -17,6 +17,12 @@ class Bookshelf extends Component{
     }
   }
 
+  onRatingChange = (book, rating) => {
+    if (this.props.onRatingChange){
+      this.props.onRatingChange(book, rating);
+    }
+  }
+
   render(){
     const {title, books=[], loading=false} = this.props;
 
@@ -30,7 +36,9 @@ class Bookshelf extends Component{
         <div className="bookshelf-books">
           <BooksGrid
             books={books}
-            onShelfChange={this.onSelfChange} />
+            onShelfChange={this.onSelfChange}
+            onRatingChange={this.onRatingChange}
+          />
         </div>
       </div>
     )

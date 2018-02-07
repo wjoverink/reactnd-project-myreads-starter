@@ -153,6 +153,7 @@ body, .app {
   height: 200px;
   display: flex;
   align-items: flex-end;
+  margin-bottom: 10px;
 }
 
 .book-shelf-changer {
@@ -186,4 +187,16 @@ body, .app {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+/* rating */
+.fa-star.empty{
+  color:lightgray;
+}
+.fa-star.all{
+  color:#E3BA2B;
+}
+
+.fa-star.user{
+  color:#658EEB;
 }
