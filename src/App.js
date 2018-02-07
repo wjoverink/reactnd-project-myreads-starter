@@ -11,19 +11,23 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount(){
-    this.fetchBooks();
-  }
-
-  fetchBooks = () => {
     BooksAPI.getAll().then(books => {
       this.setState({books});
     })
   }
 
   onShelfChange = (book, shelf) => {
-    BooksAPI.update(book,shelf).then(books => {
-      this.fetchBooks();
-    })
+    BooksAPI.update(book,shelf)
+
+    var index = this.state.books.findIndex(b => book.id === b.id);
+    if (index>-1){
+      this.state.books.splice(index,1)
+    }
+    book.shelf = shelf
+    this.setState(state => ({
+      books:state.books.concat([book])
+    }))
+
   }
 
   render() {
