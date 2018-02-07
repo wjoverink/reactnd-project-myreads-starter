@@ -7,7 +7,8 @@ import PropTypes from 'prop-types'
 
 class SearchBooks extends Component{
   static propTypes = {
-    onShelfChange:PropTypes.func
+    onShelfChange:PropTypes.func,
+    books:PropTypes.array
   }
 
   state = {
@@ -15,11 +16,18 @@ class SearchBooks extends Component{
   }
 
   onShelfChange = (book, shelf) => {
-
-      console.log("SearchBooks onShelfChange")
     if (this.props.onShelfChange){
       this.props.onShelfChange(book, shelf);
     }
+  }
+
+  syncShelfProperties = toUpdateBooks => {
+    this.props.books.forEach(book=>{
+      var foundBook = toUpdateBooks.find(b=>b.id === book.id);
+      if (foundBook){
+        foundBook.shelf = book.shelf;
+      }
+    })
   }
 
   updateQuery = (query) => {
@@ -29,6 +37,8 @@ class SearchBooks extends Component{
       if (!books || books.error){
         foundBooks=[]
       }
+      this.syncShelfProperties(foundBooks)
+
       this.setState({books:foundBooks})
     })
   }
