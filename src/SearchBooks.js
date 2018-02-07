@@ -49,7 +49,7 @@ class SearchBooks extends Component{
   render(){
     return(
       <div className="search-books">
-        <BarLoader width='100%'
+        <BarLoader
           color={'#2e7c31'}
           loading={this.state.loading}
         />

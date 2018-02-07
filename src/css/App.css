@@ -30,7 +30,7 @@ body, .app {
   padding: 0 10px 20px;
 }
 
-.bookshelf>div:first-of-type{
+.bookshelf>div:first-of-type, .search-books>div:first-of-type{
   width:100%!important;
 }
 

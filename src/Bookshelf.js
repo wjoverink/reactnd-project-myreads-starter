@@ -23,7 +23,7 @@ class Bookshelf extends Component{
     return(
       <div className="bookshelf">
         <h2 className="bookshelf-title">{title}</h2>
-        <BarLoader width={100}
+        <BarLoader
           color={'#2e7c31'}
           loading={loading}
         />
