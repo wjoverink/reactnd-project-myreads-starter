@@ -6,11 +6,14 @@ import BooksGrid from './BooksGrid'
 class Bookshelf extends Component{
   static propTypes = {
     title: PropTypes.string.isRequired,
-    books: PropTypes.array
+    books: PropTypes.array,
+    onShelfChange:PropTypes.func
   }
 
   onSelfChange = (book, shelf) => {
-
+    if (this.props.onShelfChange){
+      this.props.onShelfChange(book, shelf);
+    }
   }
 
   render(){
@@ -20,13 +23,13 @@ class Bookshelf extends Component{
       <div className="bookshelf">
         <h2 className="bookshelf-title">{title}</h2>
         <div className="bookshelf-books">
-          <BooksGrid books={books} onShelfChange={this.onSelfChange}/>
+          <BooksGrid
+            books={books}
+            onShelfChange={this.onSelfChange} />
         </div>
       </div>
     )
   }
 }
-
-
 
 export default Bookshelf

@@ -8,16 +8,14 @@ class Book extends Component{
     onShelfChange:PropTypes.func
   }
 
-
   handleShelfChange= (e) => {
       if (this.props.onShelfChange){
         this.props.onShelfChange(this.props.book, e.target.value);
       }
   }
 
-
   render(){
-    const {authors=[], bookShelf='none', imageLinks, title} = this.props.book
+    const {authors=[], shelf='none', imageLinks, title} = this.props.book
 
     let image = imageLinks ? imageLinks.thumbnail : null
 
@@ -26,7 +24,7 @@ class Book extends Component{
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${image})` }}></div>
           <div className="book-shelf-changer">
-            <select value={bookShelf} onChange={this.handleShelfChange}>
+            <select value={shelf} onChange={this.handleShelfChange}>
               <option value="disabled" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>

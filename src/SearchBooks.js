@@ -2,22 +2,35 @@ import React, { Component} from 'react'
 import { Link } from 'react-router-dom'
 import BooksGrid from './BooksGrid'
 import * as BooksAPI from './api/BooksAPI'
-import {DelayInput} from 'react-delay-input';
+import {DelayInput} from 'react-delay-input'
+import PropTypes from 'prop-types'
 
 class SearchBooks extends Component{
+  static propTypes = {
+    onShelfChange:PropTypes.func
+  }
+
   state = {
     books:[],
   }
 
+  onShelfChange = (book, shelf) => {
+
+      console.log("SearchBooks onShelfChange")
+    if (this.props.onShelfChange){
+      this.props.onShelfChange(book, shelf);
+    }
+  }
 
   updateQuery = (query) => {
     //todo: if query is empty don't search
     BooksAPI.search(query.trim()).then(books => {
-      console.log(books)
-      this.setState({books:books || []})
-    }).catch(
-      this.setState({books:[]})
-    )
+      let foundBooks = books;
+      if (!books || books.error){
+        foundBooks=[]
+      }
+      this.setState({books:foundBooks})
+    })
   }
 
   render(){
@@ -34,7 +47,9 @@ class SearchBooks extends Component{
           </div>
         </div>
         <div className="search-books-results">
-          <BooksGrid books={this.state.books}/>
+          <BooksGrid
+            books={this.state.books}
+            onShelfChange={this.onShelfChange} />
         </div>
       </div>
     )

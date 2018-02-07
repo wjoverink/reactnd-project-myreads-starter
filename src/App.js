@@ -7,13 +7,22 @@ import Bookshelf from './Bookshelf'
 
 class BooksApp extends React.Component {
   state = {
-    allBooks :[]
+    books :[]
   }
 
   componentDidMount(){
-    BooksAPI.getAll().then(allBooks => {
-      this.setState({allBooks});
-      // debugger;
+    this.fetchBooks();
+  }
+
+  fetchBooks = () => {
+    BooksAPI.getAll().then(books => {
+      this.setState({books});
+    })
+  }
+
+  onShelfChange = (book, shelf) => {
+    BooksAPI.update(book,shelf).then(books => {
+      this.fetchBooks();
     })
   }
 
@@ -22,7 +31,7 @@ class BooksApp extends React.Component {
       <div className="app">
 
         <Route exact path='/search' render={ () => (
-          <SearchBooks books={this.state.allBooks}/>
+          <SearchBooks onShelfChange={this.onShelfChange}/>
         )}/>
 
         <Route exact path='/' render={ () => (
@@ -32,13 +41,21 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Bookshelf title={'Currently Reading'}/>
-                <Bookshelf title={'Want to Read'}/>
-                <Bookshelf title={'Read'}/>
+                <Bookshelf
+                  books={this.state.books.filter(book => book.shelf === 'currentlyReading')}
+                  onShelfChange={this.onShelfChange}
+                  title={'Currently Reading'}/>
+                <Bookshelf
+                  books={this.state.books.filter(book => book.shelf === 'wantToRead')}
+                  onShelfChange={this.onShelfChange}
+                  title={'Want to Read'}/>
+                <Bookshelf
+                  books={this.state.books.filter(book => book.shelf === 'read')}
+                  onShelfChange={this.onShelfChange}
+                  title={'Read'}/>
               </div>
             </div>
             <div className="open-search">
-              {/* <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a> */}
               <Link to='/search'>Add a book</Link>
             </div>
           </div>

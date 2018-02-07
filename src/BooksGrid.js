@@ -6,10 +6,13 @@ import PropTypes from 'prop-types'
 class BooksGrid extends Component{
   static propTypes = {
     books: PropTypes.array.isRequired,
+    onShelfChange:PropTypes.func
   }
 
   onSelfChange = (book, shelf) => {
-
+    if (this.props.onShelfChange){
+      this.props.onShelfChange(book, shelf);
+    }
   }
 
   render(){
@@ -19,7 +22,6 @@ class BooksGrid extends Component{
       <ol className="books-grid">
         {
           books.map(book => (
-
             <li key={book.id}>
               <Book book={book} onShelfChange={this.onSelfChange}/>
             </li>
@@ -29,7 +31,5 @@ class BooksGrid extends Component{
     )
   }
 }
-
-
 
 export default BooksGrid
