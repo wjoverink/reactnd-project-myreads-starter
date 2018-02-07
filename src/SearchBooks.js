@@ -7,7 +7,6 @@ import {DelayInput} from 'react-delay-input';
 class SearchBooks extends Component{
   state = {
     books:[],
-
   }
 
 

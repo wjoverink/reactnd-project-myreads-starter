@@ -9,6 +9,9 @@ class Bookshelf extends Component{
     books: PropTypes.array
   }
 
+  onSelfChange = (book, shelf) => {
+
+  }
 
   render(){
     const {title, books=[]} = this.props;
@@ -17,7 +20,7 @@ class Bookshelf extends Component{
       <div className="bookshelf">
         <h2 className="bookshelf-title">{title}</h2>
         <div className="bookshelf-books">
-          <BooksGrid books={books}/>
+          <BooksGrid books={books} onShelfChange={this.onSelfChange}/>
         </div>
       </div>
     )

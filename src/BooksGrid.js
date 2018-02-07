@@ -8,6 +8,9 @@ class BooksGrid extends Component{
     books: PropTypes.array.isRequired,
   }
 
+  onSelfChange = (book, shelf) => {
+
+  }
 
   render(){
     const {books} = this.props
@@ -18,11 +21,7 @@ class BooksGrid extends Component{
           books.map(book => (
 
             <li key={book.id}>
-              <Book
-                id = {book.id}
-                title={book.title}
-                authors={book.authors}
-                image={book.imageLinks ? book.imageLinks.thumbnail : null}/>
+              <Book book={book} onShelfChange={this.onSelfChange}/>
             </li>
           ))
         }

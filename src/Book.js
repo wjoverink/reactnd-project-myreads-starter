@@ -4,36 +4,29 @@ import PropTypes from 'prop-types'
 
 class Book extends Component{
   static propTypes = {
-    authors: PropTypes.array.isRequired,
-    image: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    bookShelf: PropTypes.string,
+    book:PropTypes.object.isRequired,
+    onShelfChange:PropTypes.func
   }
 
-  // static bookShelfChangeroptions = new Map([
-  //   ['empty', {name:'Move to...', disabled:true}],
-  //   ['currentlyReading', {name:'Currently Reading'}],
-  //   ['wantToRead', {name:'Want to Read'}],
-  //   ['read', {name:'Read'}],
-  //   ['none', {name:'None'}]
-  // ])
-  //
-  // createBookShelfChanger = () => {
-  //   let options = [];
-  //   for (var [key, value] of Book.bookShelfChangeroptions) {
-  //                       options.push(<option key={key} value={key}}disabled={value.disabled}>{value.name}</option>)
-  //                   }
-  //   return options;
-  // }
+
+  handleShelfChange= (e) => {
+      if (this.props.onShelfChange){
+        this.props.onShelfChange(this.props.book, e.target.value);
+      }
+  }
+
 
   render(){
-    const {authors, bookShelf='none', image, title} = this.props;
+    const {authors=[], bookShelf='none', imageLinks, title} = this.props.book
+
+    let image = imageLinks ? imageLinks.thumbnail : null
+
     return(
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${image})` }}></div>
           <div className="book-shelf-changer">
-            <select value={bookShelf}>
+            <select value={bookShelf} onChange={this.handleShelfChange}>
               <option value="disabled" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
@@ -44,9 +37,8 @@ class Book extends Component{
         </div>
         <div className="book-title">{title}</div>
         <div className="book-authors">
-          {authors && authors.length && (
-            authors.map(author => <span key={author}>{author}</span>)
-          )}</div>
+          {authors.map(author => <span className="book-authors-name" key={author}>{author}</span>)}
+        </div>
       </div>
     )
   }
