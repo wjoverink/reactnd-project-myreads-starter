@@ -1,5 +1,4 @@
 import React, { Component} from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 class Book extends Component{
@@ -9,9 +8,9 @@ class Book extends Component{
   }
 
   handleShelfChange= (e) => {
-      if (this.props.onShelfChange){
-        this.props.onShelfChange(this.props.book, e.target.value);
-      }
+    if (this.props.onShelfChange){
+      this.props.onShelfChange(this.props.book, e.target.value);
+    }
   }
 
   render(){
