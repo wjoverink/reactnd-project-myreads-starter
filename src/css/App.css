@@ -30,6 +30,10 @@ body, .app {
   padding: 0 10px 20px;
 }
 
+.bookshelf>div:first-of-type{
+  width:100%!important;
+}
+
 @media (min-width: 600px) {
   .bookshelf {
     padding: 0 20px 40px;
@@ -38,9 +42,12 @@ body, .app {
 
 .bookshelf-title {
   border-bottom: 1px solid #dedede;
+  margin-bottom: 0;
 }
+
 .bookshelf-books {
   text-align: center;
+  margin-top: 20px;
 }
 
 .open-search {
@@ -64,10 +71,14 @@ body, .app {
 
 /* search page */
 
+.search-books{
+
+}
+
 .search-books-bar {
   position: fixed;
   width: 100%;
-  top: 0;
+  top: 2px;
   left: 0;
   z-index: 5;
   display: flex;

@@ -7,12 +7,13 @@ import Bookshelf from './Bookshelf'
 
 class BooksApp extends React.Component {
   state = {
-    books :[]
+    books :[],
+    loading:true
   }
 
   componentDidMount(){
     BooksAPI.getAll().then(books => {
-      this.setState({books});
+      this.setState({books, loading:false});
     })
   }
 
@@ -46,14 +47,17 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               <div>
                 <Bookshelf
+                  loading={this.state.loading}
                   books={this.state.books.filter(book => book.shelf === 'currentlyReading')}
                   onShelfChange={this.onShelfChange}
                   title={'Currently Reading'}/>
                 <Bookshelf
+                  loading={this.state.loading}
                   books={this.state.books.filter(book => book.shelf === 'wantToRead')}
                   onShelfChange={this.onShelfChange}
                   title={'Want to Read'}/>
                 <Bookshelf
+                  loading={this.state.loading}
                   books={this.state.books.filter(book => book.shelf === 'read')}
                   onShelfChange={this.onShelfChange}
                   title={'Read'}/>

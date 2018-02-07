@@ -4,6 +4,7 @@ import BooksGrid from './BooksGrid'
 import * as BooksAPI from './api/BooksAPI'
 import {DelayInput} from 'react-delay-input'
 import PropTypes from 'prop-types'
+import { BarLoader } from 'react-spinners';
 
 class SearchBooks extends Component{
   static propTypes = {
@@ -13,6 +14,7 @@ class SearchBooks extends Component{
 
   state = {
     books:[],
+    loading:false
   }
 
   onShelfChange = (book, shelf) => {
@@ -31,6 +33,7 @@ class SearchBooks extends Component{
   }
 
   updateQuery = (query) => {
+      this.setState({loading:true})
     //todo: if query is empty don't search
     BooksAPI.search(query.trim()).then(books => {
       let foundBooks = books;
@@ -39,13 +42,17 @@ class SearchBooks extends Component{
       }
       this.syncShelfProperties(foundBooks)
 
-      this.setState({books:foundBooks})
+      this.setState({books:foundBooks, loading:false})
     })
   }
 
   render(){
     return(
       <div className="search-books">
+        <BarLoader width='100%'
+          color={'#2e7c31'}
+          loading={this.state.loading}
+        />
         <div className="search-books-bar">
           <Link className="close-search" to='/'>Close</Link>
           <div className="search-books-input-wrapper">
