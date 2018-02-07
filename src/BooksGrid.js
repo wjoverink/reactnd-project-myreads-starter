@@ -10,16 +10,22 @@ class BooksGrid extends Component{
 
 
   render(){
-    const {books} = this.props;
+    const {books} = this.props
 
     return(
       <ol className="books-grid">
-        <li>
-          <Book
-            title={'To Kill a Mockingbird'}
-            authors={['Harper Lee']}
-            image={'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'}/>
-        </li>
+        {
+          books.map(book => (
+
+            <li key={book.id}>
+              <Book
+                id = {book.id}
+                title={book.title}
+                authors={book.authors}
+                image={book.imageLinks ? book.imageLinks.thumbnail : null}/>
+            </li>
+          ))
+        }
       </ol>
     )
   }

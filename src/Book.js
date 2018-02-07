@@ -34,7 +34,7 @@ class Book extends Component{
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${image})` }}></div>
           <div className="book-shelf-changer">
             <select value={bookShelf}>
-              <option value="none" disabled>Move to...</option>
+              <option value="disabled" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
@@ -43,7 +43,10 @@ class Book extends Component{
           </div>
         </div>
         <div className="book-title">{title}</div>
-        <div className="book-authors">{authors.map(author => <span key={author}>{author}</span>)}</div>
+        <div className="book-authors">
+          {authors && authors.length && (
+            authors.map(author => <span key={author}>{author}</span>)
+          )}</div>
       </div>
     )
   }
