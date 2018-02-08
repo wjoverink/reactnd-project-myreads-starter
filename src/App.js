@@ -4,6 +4,7 @@ import './css/App.css'
 import {Route, Link} from 'react-router-dom'
 import SearchBooks from './SearchBooks'
 import Bookshelf from './Bookshelf'
+import sortBy from 'sort-by'
 
 class BooksApp extends React.Component {
   state = {
@@ -13,41 +14,38 @@ class BooksApp extends React.Component {
 
   componentDidMount(){
     BooksAPI.getAll().then(books => {
-      console.log(books);
       this.setState({books, loading:false});
     })
   }
 
-  _removeBookFromState = (book) =>{
+  _updateBookState = (book) =>{
     var index = this.state.books.findIndex(b => book.id === b.id);
     if (index>-1){
       this.state.books.splice(index,1)
     }
+    this.setState(state => ({
+      books:state.books.concat([book])
+    }))
   }
 
   onShelfChange = (book, shelf) => {
-    BooksAPI.update(book,shelf)
-    this._removeBookFromState(book)
-
     book.shelf = shelf
-    this.setState(state => ({
-      books:state.books.concat([book])
-    }))
 
+    BooksAPI.update(book,shelf)
+    this._updateBookState(book)
   }
 
   onRatingChange = (book, rating) => {
-    this._removeBookFromState(book)
-
+    //todo: BooksAPI.update(book,rating)
     book.userRating = rating
-    console.log(book)
-    this.setState(state => ({
-      books:state.books.concat([book])
-    }))
+    
+    this._updateBookState(book)
   }
 
 
   render() {
+    let books = this.state.books.sort(sortBy('title'))
+
     return (
       <div className="app">
 
@@ -68,19 +66,19 @@ class BooksApp extends React.Component {
               <div>
                 <Bookshelf
                   loading={this.state.loading}
-                  books={this.state.books.filter(book => book.shelf === 'currentlyReading')}
+                  books={books.filter(book => book.shelf === 'currentlyReading')}
                   onShelfChange={this.onShelfChange}
                   onRatingChange={this.onRatingChange}
                   title={'Currently Reading'}/>
                 <Bookshelf
                   loading={this.state.loading}
-                  books={this.state.books.filter(book => book.shelf === 'wantToRead')}
+                  books={books.filter(book => book.shelf === 'wantToRead')}
                   onShelfChange={this.onShelfChange}
                   onRatingChange={this.onRatingChange}
                   title={'Want to Read'}/>
                 <Bookshelf
                   loading={this.state.loading}
-                  books={this.state.books.filter(book => book.shelf === 'read')}
+                  books={books.filter(book => book.shelf === 'read')}
                   onShelfChange={this.onShelfChange}
                   onRatingChange={this.onRatingChange}
                   title={'Read'}/>

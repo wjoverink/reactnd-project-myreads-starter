@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import PropTypes from 'prop-types'
-import Rating  from 'react-rating';
+import Rating  from 'react-rating'
 
 class Book extends Component{
   static propTypes = {
@@ -11,24 +11,24 @@ class Book extends Component{
 
   handleShelfChange= (e) => {
     if (this.props.onShelfChange){
-      this.props.onShelfChange(this.props.book, e.target.value);
+      this.props.onShelfChange(this.props.book, e.target.value)
     }
   }
   handleRatingChange= (value) => {
     if (this.props.onRatingChange){
-      this.props.onRatingChange(this.props.book, value);
+      this.props.onRatingChange(this.props.book, value)
     }
   }
 
   render(){
     const {authors=[], shelf='none', imageLinks, title, averageRating=0, userRating=0} = this.props.book
 
-    let image = imageLinks ? imageLinks.thumbnail : null
+    const image = imageLinks ? imageLinks.thumbnail : null
 
     return(
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${image})` }}></div>
+          <div className="book-cover" style={{backgroundImage: `url(${image})` }}></div>
           <div className="book-shelf-changer">
             <select value={shelf} onChange={this.handleShelfChange}>
               <option value="disabled" disabled>Move to...</option>
@@ -56,7 +56,5 @@ class Book extends Component{
     )
   }
 }
-
-
 
 export default Book
