@@ -3,6 +3,10 @@ import PropTypes from 'prop-types'
 import BooksGrid from './BooksGrid'
 import { BarLoader } from 'react-spinners';
 
+/**
+* @description Represents a shelf for books
+* @constructor
+*/
 class Bookshelf extends Component{
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -11,12 +15,22 @@ class Bookshelf extends Component{
     loading:PropTypes.bool
   }
 
+  /**
+  * @description event, Shelf changes for a book
+  * @param {object} book
+  * @param {string} shelf
+  */
   onSelfChange = (book, shelf) => {
     if (this.props.onShelfChange){
       this.props.onShelfChange(book, shelf);
     }
   }
 
+  /**
+  * @description event, Rating changes for a book
+  * @param {object} book
+  * @param {string} rating
+  */
   onRatingChange = (book, rating) => {
     if (this.props.onRatingChange){
       this.props.onRatingChange(book, rating);

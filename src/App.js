@@ -6,18 +6,30 @@ import SearchBooks from './SearchBooks'
 import Bookshelf from './Bookshelf'
 import sortBy from 'sort-by'
 
+/**
+* @description Represents the Books App
+* @constructor
+*/
 class BooksApp extends React.Component {
   state = {
     books :[],
     loading:true
   }
 
+  /**
+  * @description react Lifecycle Event componentDidMount
+  * get all the books from the API and saves them in the state
+  */
   componentDidMount(){
     BooksAPI.getAll().then(books => {
       this.setState({books, loading:false});
     })
   }
 
+  /**
+  * @description Updates a book in the state
+  * @param {object} book - The book that needs to be updated in the state
+  */
   _updateBookState = (book) =>{
     var index = this.state.books.findIndex(b => book.id === b.id);
     if (index>-1){
@@ -28,6 +40,11 @@ class BooksApp extends React.Component {
     }))
   }
 
+  /**
+  * @description event, Shelf changes for a book
+  * @param {objects} book
+  * @param {string} shelf
+  */
   onShelfChange = (book, shelf) => {
     book.shelf = shelf
 
@@ -35,10 +52,15 @@ class BooksApp extends React.Component {
     this._updateBookState(book)
   }
 
+  /**
+  * @description event, rating changes for a book
+  * @param {object} book
+  * @param {string} shelf
+  */
   onRatingChange = (book, rating) => {
     //todo: BooksAPI.update(book,rating)
     book.userRating = rating
-    
+
     this._updateBookState(book)
   }
 

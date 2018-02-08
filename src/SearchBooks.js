@@ -6,6 +6,10 @@ import {DelayInput} from 'react-delay-input'
 import PropTypes from 'prop-types'
 import { BarLoader } from 'react-spinners';
 
+/**
+* @description Represents a Books search control
+* @constructor
+*/
 class SearchBooks extends Component{
   static propTypes = {
     onShelfChange:PropTypes.func,
@@ -18,18 +22,31 @@ class SearchBooks extends Component{
     loading:false
   }
 
+  /**
+  * @description event, Shelf changes for a book
+  * @param {object} book
+  * @param {string} shelf
+  */
   onShelfChange = (book, shelf) => {
     if (this.props.onShelfChange){
       this.props.onShelfChange(book, shelf);
     }
   }
 
+  /**
+  * @description event, Rating changes for a book
+  * @param {object} book
+  * @param {string} rating
+  */
   onRatingChange = (book, rating) => {
     if (this.props.onRatingChange){
       this.props.onRatingChange(book, rating);
     }
   }
 
+  /**
+  * @description Syncs states(rating,shelf) from books prop with the found books
+  */
   syncBookProperties = toUpdateBooks => {
     this.props.books.forEach(book=>{
       var foundBook = toUpdateBooks.find(b=>b.id === book.id);
@@ -40,6 +57,10 @@ class SearchBooks extends Component{
     })
   }
 
+  /**
+  * @description searches for books that match the query
+  * @param {string} query - the string to search for
+  */
   updateQuery = (query) => {
       this.setState({loading:true})
     //todo: if query is empty don't search

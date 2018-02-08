@@ -2,6 +2,10 @@ import React, { Component} from 'react'
 import PropTypes from 'prop-types'
 import Rating  from 'react-rating'
 
+/**
+* @description Represents a Book
+* @constructor
+*/
 class Book extends Component{
   static propTypes = {
     book:PropTypes.object.isRequired,
@@ -9,11 +13,20 @@ class Book extends Component{
     onRatingChange:PropTypes.func
   }
 
+  /**
+  * @description select onchange event, shelf changes for a book
+  * @param {object} e
+  */
   handleShelfChange= (e) => {
     if (this.props.onShelfChange){
       this.props.onShelfChange(this.props.book, e.target.value)
     }
   }
+
+  /**
+  * @description Rating onchange event, Rating changes for a book
+  * @param {object} e
+  */
   handleRatingChange= (value) => {
     if (this.props.onRatingChange){
       this.props.onRatingChange(this.props.book, value)
