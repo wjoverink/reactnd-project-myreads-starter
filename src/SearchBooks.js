@@ -62,7 +62,7 @@ class SearchBooks extends Component{
   * @param {string} query - the string to search for
   */
   updateQuery = (query) => {
-      this.setState({loading:true})
+    this.setState({loading:true})
     //todo: if query is empty don't search
     BooksAPI.search(query.trim()).then(books => {
       let foundBooks = books;
