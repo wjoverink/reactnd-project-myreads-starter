@@ -90,6 +90,22 @@ body, .app {
 
 }
 
+.NoResults-header-copy {
+    text-align: left;
+    padding-right: 32px;
+    color: #221924;
+}
+
+.NoResults-title {
+    font-size: 1.75rem;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.NoResults-subtitle {
+    font-size: 1.25rem;
+}
+
 .search-books-bar {
   position: fixed;
   width: 100%;

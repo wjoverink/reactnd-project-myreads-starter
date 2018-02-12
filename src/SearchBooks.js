@@ -19,7 +19,8 @@ class SearchBooks extends Component{
 
   state = {
     books:[],
-    loading:false
+    loading:false,
+    query:''
   }
 
   /**
@@ -62,7 +63,7 @@ class SearchBooks extends Component{
   * @param {string} query - the string to search for
   */
   updateQuery = (query) => {
-    this.setState({loading:true})
+    this.setState({loading:true, query})
     //todo: if query is empty don't search
     BooksAPI.search(query.trim()).then(books => {
       let foundBooks = books;
@@ -93,6 +94,13 @@ class SearchBooks extends Component{
           </div>
         </div>
         <div className="search-books-results">
+          {!this.state.loading && this.state.query && this.state.books && this.state.books.length ===0 && (
+            <div class="NoResults-header-copy">
+              <h2 class="NoResults-title">We're Sorry!</h2>
+              <p class="NoResults-subtitle">We can't seem to find any products that match your search for {this.state.query}</p>
+            </div>
+          )}
+
           <BooksGrid
             books={this.state.books}
             onShelfChange={this.onShelfChange}
