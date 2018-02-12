@@ -1,7 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './api/BooksAPI'
 import './css/App.css'
-import {Route, Link} from 'react-router-dom'
+import {Route, Link, Switch} from 'react-router-dom'
 import SearchBooks from './SearchBooks'
 import Bookshelf from './Bookshelf'
 import sortBy from 'sort-by'
@@ -70,48 +70,62 @@ class BooksApp extends React.Component {
 
     return (
       <div className="app">
+        <Switch>
+          <Route exact path='/search' render={ () => (
+            <SearchBooks
+              books={this.state.books}
+              onShelfChange={this.onShelfChange}
+              onRatingChange={this.onRatingChange}
+            />
+          )}/>
 
-        <Route exact path='/search' render={ () => (
-          <SearchBooks
-            books={this.state.books}
-            onShelfChange={this.onShelfChange}
-            onRatingChange={this.onRatingChange}
-          />
-        )}/>
-
-        <Route exact path='/' render={ () => (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <Bookshelf
-                  loading={this.state.loading}
-                  books={books.filter(book => book.shelf === 'currentlyReading')}
-                  onShelfChange={this.onShelfChange}
-                  onRatingChange={this.onRatingChange}
-                  title={'Currently Reading'}/>
-                <Bookshelf
-                  loading={this.state.loading}
-                  books={books.filter(book => book.shelf === 'wantToRead')}
-                  onShelfChange={this.onShelfChange}
-                  onRatingChange={this.onRatingChange}
-                  title={'Want to Read'}/>
-                <Bookshelf
-                  loading={this.state.loading}
-                  books={books.filter(book => book.shelf === 'read')}
-                  onShelfChange={this.onShelfChange}
-                  onRatingChange={this.onRatingChange}
-                  title={'Read'}/>
+          <Route exact path='/' render={ () => (
+            <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>
+              <div className="list-books-content">
+                <div>
+                  <Bookshelf
+                    loading={this.state.loading}
+                    books={books.filter(book => book.shelf === 'currentlyReading')}
+                    onShelfChange={this.onShelfChange}
+                    onRatingChange={this.onRatingChange}
+                    title={'Currently Reading'}/>
+                  <Bookshelf
+                    loading={this.state.loading}
+                    books={books.filter(book => book.shelf === 'wantToRead')}
+                    onShelfChange={this.onShelfChange}
+                    onRatingChange={this.onRatingChange}
+                    title={'Want to Read'}/>
+                  <Bookshelf
+                    loading={this.state.loading}
+                    books={books.filter(book => book.shelf === 'read')}
+                    onShelfChange={this.onShelfChange}
+                    onRatingChange={this.onRatingChange}
+                    title={'Read'}/>
+                </div>
+              </div>
+              <div className="button open-search">
+                <Link to='/search'>Add a book</Link>
               </div>
             </div>
-            <div className="open-search">
-              <Link to='/search'>Add a book</Link>
-            </div>
-          </div>
-        )}/>
+          )}/>
 
+          <Route  render={ () => (
+            <div className="list-books p404">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>
+              <h2>Oooops, something went wrong!</h2>
+
+              <div className='button'>
+                <Link  to='/'>Back to Homepage</Link>
+              </div>
+              
+            </div>
+          )} />
+        </Switch>
       </div>
     )
   }

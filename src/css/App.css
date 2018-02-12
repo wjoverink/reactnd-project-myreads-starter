@@ -56,18 +56,32 @@ body, .app {
   right: 25px;
   bottom: 25px;
 }
+
+
+.button a{
+  color: white;
+  text-decoration: none;
+  padding:10px;
+  background: #2e7d32;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
 .open-search a {
+  border-radius: 50%;
   display: block;
   width: 50px;
   height: 50px;
-  border-radius: 50%;
-  background: #2e7d32;
   background-image: url('../icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 28px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   font-size: 0;
+  padding:0px;
+}
+
+/* 404 */
+.p404{
+  text-align: center;
 }
 
 /* search page */
@@ -182,7 +196,7 @@ body, .app {
 .book-cover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   background: #eee;
-  width: 128px; 
+  width: 128px;
   height: 193px;
 }
 .book-cover-title {
